@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         IMAGE_NAME = "pyapp"
-        DOCKER_USER = credentials('docker-username')
-        DOCKER_PASS = credentials('docker-token')
+        DOCKER_USER = credentials('bansil374')
+        DOCKER_PASS = credentials('dckr_pat_zAp2HUxfMotNv9MmdtXQC3bI9_g')
     }
 
     stages {
