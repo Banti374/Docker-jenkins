@@ -3,8 +3,6 @@ pipeline {
 
     environment {
         IMAGE_NAME = "pyapp"
-        DOCKER_USER = credentials('bansil374')
-        DOCKER_PASS = credentials('dckr_pat_zAp2HUxfMotNv9MmdtXQC3bI9_g')
     }
 
     stages {
@@ -21,6 +19,11 @@ pipeline {
 
         stage('Deploy Stage') {
             steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
                 sh '''
                   docker load -i pyapp.tar
                   docker run -d --name pythoncontainer -p 80:8080 pyapp || true
