@@ -27,7 +27,7 @@ pipeline {
                     sh '''
                         docker load -i pyapp.tar
                         docker rm -f pythoncontainer || true
-                        docker run -d --name pythoncontainer -p 80:8080 pyapp
+                        docker run -d --name pythoncontainer -p 80:8081 pyapp
 
                         echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
                         docker tag pyapp $DOCKER_USER/pyapp
