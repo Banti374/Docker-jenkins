@@ -57,12 +57,11 @@ pipeline {
                         echo "Deploying to $SERVER"
 
                         ssh -o StrictHostKeyChecking=no -i $SSH_KEY $SSH_USER@$SERVER "
-                        echo "-----****--_Successfully SSH into Prod Server_--****-----"
 
                         
                         sudo apt install -y docker.io
                         docker --version
-                        echo "-----****--_Docker installed_--****-----"
+
                         
                         sudo systemctl enable docker
                         sudo systemctl start docker
@@ -70,7 +69,7 @@ pipeline {
                         sudo systemctl enable docker.socket
                         sudo systemctl start docker.service
                         sudo usermod -aG docker ubuntu
-                        echo "-----****--_Docker Running_--****-----"
+
 
                           docker pull $IMAGE_NAME
                           docker stop $CONTAINER_NAME || true
@@ -79,7 +78,7 @@ pipeline {
                             --name $CONTAINER_NAME \
                             -p 8081:8081 \
                             $IMAGE_NAME
-                         echo "-----****--_Docker container starts_--****-----"
+
                         "
                       done
                     '''
