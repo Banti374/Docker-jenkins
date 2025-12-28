@@ -74,10 +74,10 @@ pipeline {
 
     post {
         success {
-            echo "✅ Deployment successful on all prod servers"
+            echo "-----****--_Deployment successful on all prod servers_--****-----"
         }
         failure {
-            echo "❌ Deployment failed"
+            echo "-----****--_Deployment failed_--****-----"
         }
     }
 }
