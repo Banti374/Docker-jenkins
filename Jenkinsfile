@@ -33,21 +33,26 @@ pipeline {
             
         }
 
-        stage('Deploy Stage') {
-            steps {
-                    sh '''
-                        ssh ubuntu@3.111.35.233 '
-                        docker stop myapp || true
-                        docker rm -f pythoncontainer || true
-                        docker run -d --name pythoncontainer -p 8081:8081 pyapp
+stage('Deploy Stage') {
+    steps {
+        sshagent(['prod-ssh-key']) {
+            sh '''
+                ssh -o StrictHostKeyChecking=no ubuntu@3.111.35.233 "
+                    docker stop pythoncontainer || true
+                    docker rm -f pythoncontainer || true
+                    docker pull $DOCKER_USER/pyapp
+                    docker run -d --name pythoncontainer -p 8081:8081 $DOCKER_USER/pyapp
+                "
 
-                        ssh ubuntu@3.109.155.195 '
-                        docker stop myapp || true
-                        docker rm -f pythoncontainer || true
-                        docker run -d --name pythoncontainer -p 8081:8081 pyapp
-                    '''
-                }
-            
+                ssh -o StrictHostKeyChecking=no ubuntu@3.109.155.195 "
+                    docker stop pythoncontainer || true
+                    docker rm -f pythoncontainer || true
+                    docker pull $DOCKER_USER/pyapp
+                    docker run -d --name pythoncontainer -p 8081:8081 $DOCKER_USER/pyapp
+                "
+            '''
         }
+    }
+}
     }
 }
