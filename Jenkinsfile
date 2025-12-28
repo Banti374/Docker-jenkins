@@ -57,6 +57,14 @@ pipeline {
                         echo "Deploying to $SERVER"
 
                         ssh -o StrictHostKeyChecking=no -i $SSH_KEY $SSH_USER@$SERVER "
+                        sudo apt install -y docker.io
+                        sudo systemctl start docker
+                        sudo systemctl enable docker
+                        docker --version
+                        sudo usermod -aG docker ubuntu
+                        sudo systemctl enable docker.service
+                        sudo systemctl enable docker.socket
+                        sudo systemctl start docker.service
                           docker pull $IMAGE_NAME
                           docker stop $CONTAINER_NAME || true
                           docker rm -f $CONTAINER_NAME || true
