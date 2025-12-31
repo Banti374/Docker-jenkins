@@ -7,9 +7,8 @@ pipeline {
         CONTAINER_NAME = "pythoncontainer"
 
         // Prod servers
-        PROD_SERVER1 = "3.108.55.149"
-        PROD_SERVER2 = "65.1.110.88"
-        PROD_SERVER3 = "13.204.64.139"
+        PROD_SERVER1 = "13.203.199.94"
+        PROD_SERVER2 = "43.204.116.78"
     }
 
     stages {
@@ -53,7 +52,7 @@ pipeline {
                     usernameVariable: 'SSH_USER'
                 )]) {
                     sh '''
-                      for SERVER in $PROD_SERVER1 $PROD_SERVER2 $PROD_SERVER3
+                      for SERVER in $PROD_SERVER1 $PROD_SERVER2
                       do
                         echo "Deploying to $SERVER"
 
