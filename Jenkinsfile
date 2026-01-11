@@ -52,7 +52,7 @@ pipeline {
                     usernameVariable: 'SSH_USER'
                 )]) {
                     sh '''
-                      for SERVER in $PROD_SERVER1        '''$PROD_SERVER2'''
+                      for SERVER in $PROD_SERVER1
                       do
                         echo "Deploying to $SERVER"
 
