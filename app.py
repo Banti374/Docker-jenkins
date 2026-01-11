@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def skill():
-    message = "Hello {name}"
+    message = "Hello {name}! How you doing"
     
     return message.format(name=os.getenv("NAME", "BNT"))
     
